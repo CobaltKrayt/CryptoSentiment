@@ -17,6 +17,7 @@ reddit = praw.Reddit(
 headlines = set()
 for submission in reddit.subreddit('CryptoCurrency').hot(limit=None):
     headlines.add(submission.title)
+    headlines.add(submission.created_utc)
 print(len(headlines))
 
 df = pd.DataFrame(headlines)
