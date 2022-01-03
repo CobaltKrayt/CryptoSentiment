@@ -4,6 +4,12 @@ import nltk
 import praw
 import seaborn as sns
 from matplotlib import pyplot as plt
+import pytz
+
+# time format
+# est = pytz.timezone('US/Eastern')
+# utc = pytz.utc
+# fmt = '%d-%m-%Y %H:%M:%S %Z%z'
 
 nltk.download('vader_lexicon')
 
@@ -16,14 +22,12 @@ reddit = praw.Reddit(
 
 headlines = set()
 for submission in reddit.subreddit('CryptoCurrency').hot(limit=None):
-    headlines.add(submission.title)
-    headlines.add(submission.created_utc)
+    headlines.add((submission.title ,submission.created_utc))
+
 print(len(headlines))
 
 df = pd.DataFrame(headlines)
-
 df.to_csv('redditHeadlines.csv',header=False,encoding='utf-8', index=False)
-
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 
@@ -31,11 +35,12 @@ sia = SIA()
 results=[]
 
 for line in headlines:
-    pol_score = sia.polarity_scores(line)
-    pol_score['headline'] = line
+    pol_score = sia.polarity_scores(line[0])
+    pol_score['headline'] = line[0]
+    pol_score['date'] = line[1]
     results.append(pol_score)
 
-pprint(results[:3],width=100)
+# pprint(results[:3],width=100)
 
 df = pd.DataFrame.from_records(results)
 
