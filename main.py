@@ -42,6 +42,8 @@ tweetContent = card.find_element(By.XPATH,'./div/div/div/div[2]/div[2]/div[2]/di
 respondingTo = card.find_element(By.XPATH,'./div/div/div/div[2]/div[2]/div[2]/div[2]').text
 
 replyCount = card.find_element(By.XPATH,'.//div[@data-testid="reply"]').text
+retweetCount = card.find_element(By.XPATH,'.//div[@data-testid="retweet"]').text
+likeCount = card.find_element(By.XPATH,'.//div[@data-testid="like"]').text
 
 
 print(username)
@@ -50,4 +52,6 @@ print(postTime)
 print(tweetContent)
 print(respondingTo)
 print(replyCount)
+print(retweetCount)
+print(likeCount)
 
