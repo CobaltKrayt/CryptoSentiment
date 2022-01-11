@@ -87,7 +87,10 @@ while scrolling:
             break
 
 df = pd.DataFrame(tweetDataList)
-df.to_csv('tweetData.csv',header=['Username','Handle','Timestamp','CommentCount', 'Likes','Retweets', 'Text'],encoding='utf-8', index=False)
+df.to_csv('tweetData.csv',
+          header=['Username','Handle','Timestamp','Content','RespondingTo','CommentCount','Retweets','Likes'],
+          encoding='utf-8', index=False
+          )
 
 
 
